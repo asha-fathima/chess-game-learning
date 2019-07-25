@@ -1,4 +1,4 @@
-(function (exports) {
+(function(exports) {
   const coinIcons = {
     Rook: `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
       viewBox="0 0 298 298" style="enable-background:new 0 0 298 298;" xml:space="preserve">
@@ -302,26 +302,27 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
   const doubleCoins = ["Rook", "Bishop", "Knight"]; // {Left, Right}
   const singleCoins = ["King", "Queen"]; // []
   const chessBoard = new chess.Chess();
-  function squareClickListener(event){
-    let coin = chessBoard.getCoinOnpos([this.row,this.col])
-    if(coin){
-      let coins = chessBoard.getPosOfCoin(coin)
-      getChessSquare(coins).classList.add("selected_coin_square")
-    }else{
-      alert("you wil not toch the coin")
+
+  function squareClickListener(exam) {
+    const coin = chessBoard.getCoinOnpos([this.row, this.col]);
+    if (coin) {
+      let coinOnPos = chessBoard.getPosOfCoin(coin);
+      let thiscoin = getChessSquare(coinOnPos);
+      thiscoin.classList.add("selected_coin_square");
+    } else {
+      alert("you must select the coin");
     }
-    
   }
 
   function createSquare(isBlack, row, col) {
-    const square = document.createElement("span");//sppan enpathu square box,
-    if (isBlack) { //is Black first varum pothu  fals ah iruku secound time true agidum
+    const square = document.createElement("span"); //sppan enpathu square box,
+    if (isBlack) {
+      //is Black first varum pothu  fals ah iruku secound time true agidum
       square.classList.add("black_square"); //if true ah irutha black square irukum
     } else {
-      square.classList.add("white_square");// if false ah irutha white square irukum 
-
+      square.classList.add("white_square"); // if false ah irutha white square irukum
     }
-    square.id = "row-" + row + "-col-" + col;// paramenter value pass in square. id  row,col 
+    square.id = "row-" + row + "-col-" + col; // paramenter value pass in square. id  row,col
     square.row = row;
     square.col = col;
     square.addEventListener("click", squareClickListener);
@@ -329,18 +330,18 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
   }
 
   function createCol(isBlaskIsStart, row) {
-    const col = document.createElement("div");//chess game oru dive creat pannuthu
+    const col = document.createElement("div"); //chess game oru dive creat pannuthu
     col.classList.add("chess_game");
     let currentColor = isBlaskIsStart;
     for (let i = 0; i < 8; i++) {
-      col.appendChild(createSquare(currentColor, row, i));//color,first loop-i,seccound-i---parameter bass aguthu
+      col.appendChild(createSquare(currentColor, row, i)); //color,first loop-i,seccound-i---parameter bass aguthu
       currentColor = !currentColor;
     }
     return col;
   }
 
   function createRow(isBlaskIsStart, rowId) {
-    const row = document.createElement("div");//document.creatElement vanthu oru dive creat panni kodukuthu...
+    const row = document.createElement("div"); //document.creatElement vanthu oru dive creat panni kodukuthu...
     row.classList.add("column_chess");
     row.appendChild(createCol(isBlaskIsStart, rowId));
     return row;
@@ -387,10 +388,7 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
     isBlack = !isBlack;
   }
   createChessBoardWithInitialPos(chessBoard);
-
 })((chessApp = {}));
-
-
 
 // function squareClickListener(event) {
 //   var coins = chessBoard.getCoinOnpos([this.row, this.col])
