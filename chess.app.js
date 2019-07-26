@@ -303,14 +303,18 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
   const singleCoins = ["King", "Queen"]; // []
   const chessBoard = new chess.Chess();
 
-  function squareClickListener(exam) {
-    const coin = chessBoard.getCoinOnpos([this.row, this.col]);
+  function squareClickListener(event) {
+    let coin = chessBoard.getCoinOnpos([this.row, this.col]);
     if (coin) {
-      let coinOnPos = chessBoard.getPosOfCoin(coin);
-      let thiscoin = getChessSquare(coinOnPos);
-      thiscoin.classList.add("selected_coin_square");
+      if (chessBoard.selectedCoin) {
+        const position = chessBoard.getPosOfCoin(chessBoard.selectedCoin);
+        getChessSquare(position).classList.remove("selected_coin_square");
+      }
+      let coins = chessBoard.getPosOfCoin(coin);
+      getChessSquare(coins).classList.add("selected_coin_square");
+      chessBoard.selectCoin(coin);
     } else {
-      alert("you must select the coin");
+      alert("you wil not toch the coin");
     }
   }
 
