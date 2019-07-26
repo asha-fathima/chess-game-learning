@@ -307,11 +307,19 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
     let coin = chessBoard.getCoinOnpos([this.row, this.col]);
     if (coin) {
       if (chessBoard.selectedCoin) {
-        const position = chessBoard.getPosOfCoin(chessBoard.selectedCoin);
-        getChessSquare(position).classList.remove("selected_coin_square");
+        const position = chessBoard.getPosOfCoin(chessBoard.selectedCoin); // pathla erunthu coin number varuthu
+        const allmove = chessBoard.getPosibleMoves(position); // get all postions
+        const coin_remove_row_col = allmove.map(getChessSquare); // get row col
+        coin_remove_row_col.forEach(function(poss) {
+          poss.classList.remove("selected_coin_square");
+        });
       }
-      let coins = chessBoard.getPosOfCoin(coin);
-      getChessSquare(coins).classList.add("selected_coin_square");
+      let coins = chessBoard.getPosOfCoin(coin); // pathla erunthu coin number varuthu
+      const positions = chessBoard.getPosibleMoves(coins); // get all positions
+      const coin_row_col = positions.map(getChessSquare); // get row col
+      coin_row_col.forEach(function(pos) {
+        pos.classList.add("selected_coin_square");
+      });
       chessBoard.selectCoin(coin);
     } else {
       alert("you wil not toch the coin");
