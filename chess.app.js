@@ -313,7 +313,9 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
         coin_remove_row_col.forEach(function(poss) {
           poss.classList.remove("selected_coin_square");
         });
+        getChessSquare(position).classList.remove("coin_color");
       }
+      this.classList.add("coin_color");
       let coins = chessBoard.getPosOfCoin(coin); // pathla erunthu coin number varuthu
       const positions = chessBoard.getPosibleMoves(coins); // get all positions
       const coin_row_col = positions.map(getChessSquare); // get row col
