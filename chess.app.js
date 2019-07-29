@@ -304,7 +304,7 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
   const chessBoard = new chess.Chess();
 
   function squareClickListener(event) {
-    let coin = chessBoard.getCoinOnpos([this.row, this.col]);
+    let coin = chessBoard.getCoinOnpos([this.row, this.col]); // path
     if (coin) {
       if (chessBoard.selectedCoin) {
         const position = chessBoard.getPosOfCoin(chessBoard.selectedCoin); // pathla erunthu coin number varuthu
@@ -324,7 +324,23 @@ viewBox="0 0 297 297" style="enable-background:new 0 0 297 297;" xml:space="pres
       });
       chessBoard.selectCoin(coin);
     } else {
-      alert("you wil not toch the coin");
+      if (chessBoard.selectedCoin) {
+        const pos = chessBoard.getPosOfCoin(chessBoard.selectedCoin);
+        const possibleMove = chessBoard.getPosibleMoves(pos);
+        const currentSquare = [this.row, this.col];
+        const validPosition = possibleMove.find(function(move) {
+          if (move[0] == currentSquare[0] && move[1] == currentSquare[1]) {
+            return move;
+          }
+        });
+        if (validPosition) {
+          alert("you have selected valid position");
+        } else {
+          alert("Invalid position");
+        }
+      } else {
+        alert("you wil not toch the coin");
+      }
     }
   }
 
